@@ -873,19 +873,144 @@ if run:
 # Footer
 # -----------------------------------
 st.markdown("""
-<div style="
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+.footer-container {
     margin-top: 100px;
-    padding: 28px 32px;
+    padding: 40px 32px;
     border-radius: 16px;
-    border: 1px solid rgba(201,168,76,0.12);
-    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.footer-content {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h4 {
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
     letter-spacing: 1px;
-    color: #5A5448;">
-    <div>© 2026 <span style='color:#C9A84C;'>LoanSahayak</span> — All Rights Reserved</div>
-    <div style='text-transform:uppercase; letter-spacing:2px;'>AI · Credit · Intelligence</div>
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--gold);
+    transform: translateX(5px);
+}
+
+.social-icons {
+    display: flex;
+    gap: 16px;
+}
+
+.social-icons a {
+    color: var(--text-secondary);
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--gold);
+    transform: scale(1.1);
+}
+
+.author-section {
+    text-align: center;
+}
+
+.author-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    margin-bottom: 12px;
+}
+
+.author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.author-role {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.copyright span {
+    color: var(--gold);
+}
+</style>
+
+<div class="footer-container">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://github.com/Arnav-Singh-5080/Ai-Credit-Intelligence-Engine" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Connect</h4>
+            <div class="social-icons">
+                <a href="https://github.com/Arnav-Singh-5080" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+        <div class="footer-section author-section">
+            <h4>Project Author</h4>
+            <img src="https://via.placeholder.com/60" alt="Author Avatar" class="author-avatar">
+            <div class="author-name">Arnav Singh</div>
+            <div class="author-role">AI Developer & Data Scientist</div>
+        </div>
+    </div>
+    <div class="copyright">
+        © 2026 <span>LoanSahayak</span> — All Rights Reserved | AI · Credit · Intelligence
+    </div>
 </div>
 """, unsafe_allow_html=True)
