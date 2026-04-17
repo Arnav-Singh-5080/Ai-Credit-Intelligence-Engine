@@ -1110,15 +1110,16 @@ st.markdown("""
         </div>
 
         <div class="footer-section">
-            <h4>Quick Links</h4>
-            <ul class="footer-links">
-                <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
-                <li><a href="#about"><i class="fas fa-angle-right"></i> About</a></li>
-                <li><a href="#features"><i class="fas fa-angle-right"></i> Features</a></li>
-                <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact</a></li>
-                <li><a href="https://github.com/Arnav-Singh-5080/Ai-Credit-Intelligence-Engine" target="_blank"><i class="fas fa-angle-right"></i> GitHub Repository</a></li>
-            </ul>
-        </div>
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+            <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-angle-right"></i> About</a></li>
+            <li><a href="#features"><i class="fas fa-angle-right"></i> Features</a></li>
+            <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact</a></li>
+            <li><a href="#faq"><i class="fas fa-angle-right"></i> FAQ</a></li>
+            <li><a href="https://github.com/Arnav-Singh-5080/Ai-Credit-Intelligence-Engine" target="_blank"><i class="fas fa-angle-right"></i> GitHub Repository</a></li>
+        </ul>
+    </div>
 
         <div class="footer-section">
             <h4>Connect</h4>
@@ -1130,27 +1131,28 @@ st.markdown("""
             </div>
         </div>
 
-        <div class="footer-section">
-            <h4>Project Author</h4>
-            <div class="author-card">
-                <img src="https://via.placeholder.com/72" alt="Author Avatar" class="author-avatar">
-                <div class="author-name">Arnav Singh</div>
-                <div class="author-role">Machine Learning Enthusiast & Aspiring Data Scientist</div>
-                <div class="author-tag">Project Creator</div>
-            </div>
+           <div class="footer-section">
+        <h4>Project Author</h4>
+        <div class="author-card">
+            <img src="https://via.placeholder.com/76" alt="Author Avatar" class="author-avatar">
+            <div class="author-name">Arnav Singh</div>
+            <div class="author-role">Machine Learning Enthusiast & Aspiring Data Scientist</div>
+            <div class="author-tag">Project Creator</div>
         </div>
     </div>
+</div>
 
     <div class="footer-divider">
-        <div class="copyright">
-            © 2026 <span>LoanSahayak</span> — All Rights Reserved | AI · Credit · Intelligence
-        </div>
+    <div class="copyright">
+        © 2026 <span>LoanSahayak</span> — All Rights Reserved | AI · Credit · Intelligence
+    </div>
 
-        <div class="footer-bottom-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Support</a>
-        </div>
+    <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Support</a>
+    </div>
+</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
