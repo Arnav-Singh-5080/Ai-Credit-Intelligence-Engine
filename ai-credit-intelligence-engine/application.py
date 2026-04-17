@@ -872,7 +872,7 @@ if run:
 # -----------------------------------
 # Footer
 # -----------------------------------
-```python
+
 st.markdown("""
 <style>
 .footer-container {
