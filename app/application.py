@@ -587,8 +587,15 @@ st.sidebar.markdown("""
 # -----------------------------------
 # Load Model
 # -----------------------------------
-model = pickle.load(open("models/loan_model.pkl", "rb"))
-scaler = pickle.load(open("models/scaler.pkl", "rb"))
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model_path = os.path.join(BASE_DIR, "..", "models", "loan_model.pkl")
+scaler_path = os.path.join(BASE_DIR, "..", "models", "scaler.pkl")
+
+model = pickle.load(open(model_path, "rb"))
+scaler = pickle.load(open(scaler_path, "rb"))
 
 # -----------------------------------
 # EMI Calculator

@@ -45,10 +45,10 @@ AI-powered credit risk assessment system that evaluates loan applications using 
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/ai-credit-intelligence-engine
-cd ai-credit-intelligence-engine
+git clone https://github.com/Arnav-Singh-5080/Ai-Credit-Intelligence-Engine.git
+cd Ai-Credit-Intelligence-Engine
 pip install -r requirements.txt
-streamlit run application.py
+streamlit run app/application.py
 ```
 
 ---
@@ -97,3 +97,15 @@ Machine Learning Enthusiast | Aspiring Data Scientist
 - Email: itsarnav.singh80@gmail.com  
 - LinkedIn: https://www.linkedin.com/in/arnav-singh-a87847351  
 - GitHub: https://github.com/Arnav-Singh-5080  
+
+## Project Structure
+
+```
+project/
+├── app/        # Streamlit application
+├── models/     # trained ML models
+├── data/       # datasets
+├── docs/       # documentation files
+├── requirements.txt
+└── README.md
+```
