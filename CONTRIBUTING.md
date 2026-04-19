@@ -122,6 +122,19 @@ streamlit run application.py
 
 ![Line](https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif)
 
+## How to Create a Pull Request
+
+1. Fork the repository
+2. Clone your fork to your local machine
+3. Create a new branch for your changes
+4. Make the necessary changes
+5. Commit your changes with a clear message
+6. Push your changes to your forked repository
+7. Go to the original repository and click "New Pull Request"
+8. Add a proper title and description
+9. Submit the pull request for review
+
+
 ## ✅ PR Review Process
 
 We aim to keep things smooth and transparent:
