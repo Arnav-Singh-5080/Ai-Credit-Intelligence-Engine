@@ -20,7 +20,7 @@ You can report vulnerabilities by:
 
 Please avoid publicly disclosing security issues until they have been addressed.
 
----
+----
 
 ## Security Best Practices
 
