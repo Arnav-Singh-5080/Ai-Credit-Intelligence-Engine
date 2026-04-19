@@ -25,3 +25,10 @@ Regularly update your dependencies to the latest versions.
 ## Acknowledgements
 We appreciate contributions from the community and researchers who help us improve the security of AI-CREDIT-INTELLIGENCE-ENGINE. Thank you for keeping the platform secure for everyone!
 
+## Contact
+
+**Arnav Singh** — Project Maintainer & NSoC'26 Admin
+
+- Email: itsarnav.singh80@gmail.com
+- LinkedIn: https://www.linkedin.com/in/arnav-singh-a87847351
+- GitHub: https://github.com/Arnav-Singh-5080
