@@ -632,9 +632,11 @@ with col3:
 with col4:
     loan_term    = st.slider("Loan Term (Months)", 6, 360, 60)
 
-col5, _ = st.columns([1, 1], gap="large")
+col5, col6_rate = st.columns([1, 1], gap="large")
 with col5:
     age = st.slider("Applicant Age", 18, 70, 30)
+with col6_rate:
+    annual_interest_rate = st.slider("Annual Interest Rate (%)", 5.0, 24.0, 10.0, step=0.5)
 
 # -----------------------------------
 # Section: Background Details
@@ -710,7 +712,7 @@ if run:
 
     # ---------------- MAIN LOGIC ----------------
     total_income = applicant_income + coapplicant_income
-    emi = calculate_emi(loan_amount, loan_term)
+    emi = calculate_emi(loan_amount, loan_term, annual_interest_rate)
     emi_ratio = emi / total_income if total_income > 0 else 0
 
     # Summary
@@ -814,6 +816,7 @@ if run:
         ["Total Income", f"₹ {total_income:,}"],
         ["Loan Amount", f"₹ {loan_amount:,}"],
         ["Loan Term", f"{loan_term} months"],
+        ["Interest Rate", f"{annual_interest_rate}%"],
         ["EMI", f"₹ {round(emi,2)}"]
     ])
 
