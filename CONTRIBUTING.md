@@ -89,7 +89,7 @@ Click on the Fork button.
 
 ### 2️⃣ Clone Your Fork
 
-git clone https://github.com/your-username/uiverse.git
+git clone https://github.com/your-username/Ai-Credit-Intelligence-Engine.git
 
 ### 3️⃣ Create a Branch
 
