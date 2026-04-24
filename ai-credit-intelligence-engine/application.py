@@ -800,17 +800,17 @@ if run:
     decision_text = "APPROVED" if prediction[0] == 1 else "REJECTED"
 
     if prediction[0] == 1:
-        st.success(f"✓ Loan Approved (Confidence: {round(approval_prob,2)}%)")
+        st.success(f"✓ Loan Approved (Approval Confidence: {round(approval_prob,2)}%)")
 
     else:
-        st.error(f"✕ Loan Rejected (Confidence: {round(100-approval_prob,2)}%)")
+        st.error(f"✕ Loan Rejected (Rejection Confidence: {round(100-approval_prob,2)}%)")
 
         # ---- Rejection Reason Logic ----
         reasons = []
 
         # Income check
         if total_income < 25000:
-            reasons.append("Total household income is below the recommended threshold (₹25,000).")
+            reasons.append("Total household income is below the recommended threshold (Rs. 25,000).")
 
         # EMI ratio check
         if emi_ratio > 0.5:
@@ -877,10 +877,10 @@ if run:
 
     table = Table([
         ["Metric", "Value"],
-        ["Total Income", f"₹ {total_income:,}"],
-        ["Loan Amount", f"₹ {loan_amount:,}"],
+        ["Total Income", f"Rs. {total_income:,}"],
+        ["Loan Amount", f"Rs. {loan_amount:,}"],
         ["Loan Term", f"{loan_term} months"],
-        ["EMI", f"₹ {round(emi,2)}"]
+        ["EMI", f"Rs. {round(emi,2)}"]
     ])
 
     table.setStyle(TableStyle([
@@ -919,7 +919,10 @@ if run:
 
     content.append(Paragraph(decision_text, decision_style))
     content.append(Spacer(1, 10))
-    content.append(Paragraph(f"Confidence: {round(approval_prob,2)}%", styles["Normal"]))
+    if prediction[0] == 1:
+        content.append(Paragraph(f"Approval Confidence: {round(approval_prob,2)}%", styles["Normal"]))
+    else:
+        content.append(Paragraph(f"Rejection Confidence: {round(100-approval_prob,2)}%", styles["Normal"]))
     content.append(Spacer(1, 20))
 
     # -------------------------------
