@@ -47,8 +47,8 @@ AI-powered credit risk assessment system that evaluates loan applications using 
 ```bash
 git clone https://github.com/your-username/ai-credit-intelligence-engine
 cd ai-credit-intelligence-engine
-pip install -r requirements.txt
-streamlit run application.py
+pip install -r ai-credit-intelligence-engine/requirements.txt
+streamlit run ai-credit-intelligence-engine/application.py
 ```
 
 ---
