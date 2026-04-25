@@ -810,7 +810,7 @@ if run:
 
         # Income check
         if total_income < 25000:
-            reasons.append("Total household income is below the recommended threshold (₹25,000).")
+            reasons.append("Total household income is below the recommended threshold (Rs.25,000).")
 
         # EMI ratio check
         if emi_ratio > 0.5:
@@ -874,13 +874,12 @@ if run:
     # Financial Table
     content.append(Paragraph("Financial Summary", section_style))
     content.append(Spacer(1, 10))
-
     table = Table([
         ["Metric", "Value"],
-        ["Total Income", f"₹ {total_income:,}"],
-        ["Loan Amount", f"₹ {loan_amount:,}"],
+        ["Total Income", f"Rs. {total_income:,}"],
+        ["Loan Amount", f"Rs. {loan_amount:,}"],
         ["Loan Term", f"{loan_term} months"],
-        ["EMI", f"₹ {round(emi,2)}"]
+        ["EMI", f"Rs. {round(emi,2)}"]
     ])
 
     table.setStyle(TableStyle([
@@ -919,7 +918,10 @@ if run:
 
     content.append(Paragraph(decision_text, decision_style))
     content.append(Spacer(1, 10))
-    content.append(Paragraph(f"Confidence: {round(approval_prob,2)}%", styles["Normal"]))
+    #Updated confidence and rejection label 
+    confidence = round(approval_prob, 2) if prediction[0] == 1 else round(100 - approval_prob, 2)
+    label = "Approval Confidence" if prediction[0] == 1 else "Rejection Confidence"
+    content.append(Paragraph(f"{label}: {confidence}%", styles["Normal"]))
     content.append(Spacer(1, 20))
 
     # -------------------------------
