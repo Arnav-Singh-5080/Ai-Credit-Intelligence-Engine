@@ -352,6 +352,35 @@ input[type="number"]:focus {
     font-family: 'Playfair Display', serif !important;
 }
 
+/* ── Aggressively remove ALL sidebar top space ── */
+section[data-testid="stSidebar"] > div:first-child,
+section[data-testid="stSidebar"] > div,
+[data-testid="stSidebar"] > div,
+[data-testid="stSidebar"] > div:first-child,
+[data-testid="stSidebarContent"],
+[data-testid="stSidebarContent"] > div,
+[data-testid="stSidebarContent"] > div:first-child,
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"],
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div:first-child {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+}
+
+/* Tighten spacing between all sidebar elements */
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div {
+    gap: 4px !important;
+}
+
+[data-testid="stSidebar"] .stMarkdown {
+    margin-bottom: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+[data-testid="stSidebar"] .element-container {
+    margin-bottom: 2px !important;
+    margin-top: 2px !important;
+}
+
 /* ── Divider ── */
 hr {
     border-color: var(--border) !important;
@@ -437,13 +466,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -----------------------------------
-# Sidebar
-# -----------------------------------
-# -----------------------------------
-# Sidebar (Premium – Same Font Style)
+# Sidebar — all in ONE markdown call to eliminate Streamlit gaps
 # -----------------------------------
 st.sidebar.markdown("""
-<div style="padding: 8px 0 20px; border-bottom: 1px solid rgba(201,168,76,0.2); margin-bottom: 20px;">
+<div style="padding: 14px 0 10px; border-bottom: 1px solid rgba(201,168,76,0.2); margin-bottom: 14px;">
     <div style="font-family: 'Playfair Display', serif; font-size: 22px; color: #F0EBE0; font-weight: 700;">
         LoanSahayak
     </div>
@@ -451,10 +477,7 @@ st.sidebar.markdown("""
         Smart Loan Intelligence
     </div>
 </div>
-""", unsafe_allow_html=True)
 
-# System Info (Improved readability)
-st.sidebar.markdown("""
 <div style="
     padding:16px;
     border-radius:14px;
@@ -463,124 +486,50 @@ st.sidebar.markdown("""
     color:#9CCBFF;
     font-size:14px;
     line-height:1.6;
+    margin-bottom:14px;
 ">
 AI-powered system that evaluates loan applications using:<br>
 • Financial indicators<br>
 • Credit score analysis<br>
 • Multi-factor risk assessment
 </div>
-""", unsafe_allow_html=True)
 
-st.sidebar.markdown("<br>", unsafe_allow_html=True)
-
-# Trust Indicators (NEW 🔥)
-st.sidebar.markdown("""
 <div style="font-size:12px; color:#9A9080; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">
 System Stats
 </div>
-<div style="font-size:14px; color:#F0EBE0; line-height:1.8;">
+<div style="font-size:14px; color:#F0EBE0; line-height:1.8; margin-bottom:14px;">
 ✔ Accuracy: <span style="color:#C9A84C;">83.4%</span><br>
 ✔ Decision Time: <span style="color:#C9A84C;">&lt; 2s</span><br>
 ✔ Risk Factors: <span style="color:#C9A84C;">16+</span>
 </div>
-""", unsafe_allow_html=True)
 
-st.sidebar.markdown("<hr>", unsafe_allow_html=True)
+<hr style="border-color: rgba(201,168,76,0.2); margin: 8px 0 14px;">
 
-# Author Section (Refined)
-st.sidebar.markdown("""
-<div style="font-family:'Playfair Display', serif; font-size:20px; color:#F0EBE0; font-weight:600;">
+<div style="font-family:'Playfair Display', serif; font-size:20px; color:#F0EBE0; font-weight:600; margin-bottom:6px;">
 👤 Project Author
 </div>
+<div style="font-size:16px; color:#F0EBE0; font-weight:500; margin-bottom:2px;">Arnav Singh</div>
+<div style="font-size:13px; color:#9A9080; margin-bottom:14px;">Machine Learning Enthusiast | Aspiring Data Scientist</div>
 
-<div style="margin-top:10px; font-size:16px; color:#F0EBE0; font-weight:500;">
-Arnav Singh
+<div style="display:flex; gap:12px; justify-content:center; margin-bottom:12px;">
+    <a href="https://www.linkedin.com/in/arnav-singh-a87847351" target="_blank">
+        <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:rgba(78,161,255,0.08);border:1px solid rgba(78,161,255,0.2);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#4EA1FF"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6C1.11 6 0 4.88 0 3.5C0 2.12 1.11 1 2.49 1C3.87 1 4.98 2.12 4.98 3.5ZM0.22 8.98H4.75V24H0.22V8.98ZM7.98 8.98H12.32V11.04H12.38C13.04 9.86 14.66 8.63 17.04 8.63C22.08 8.63 23 11.88 23 16.13V24H18.47V17.21C18.47 15.46 18.44 13.2 16.02 13.2C13.56 13.2 13.18 15.06 13.18 17.08V24H8.65V8.98H7.98Z"/></svg>
+        </div>
+    </a>
+    <a href="mailto:itsarnav.singh80@gmail.com">
+        <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:rgba(0,255,150,0.08);border:1px solid rgba(0,255,150,0.25);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#00FFAA"><path d="M2 4C2 2.9 2.9 2 4 2H20C21.1 2 22 2.9 22 4V20C22 21.1 21.1 22 20 22H4C2.9 22 2 21.1 2 20V4ZM4 4V6L12 13L20 6V4L12 11L4 4ZM20 8L12 15L4 8V20H20V8Z"/></svg>
+        </div>
+    </a>
+    <a href="https://github.com/Arnav-Singh-5080" target="_blank">
+        <div style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);">
+            <svg height="18" width="18" viewBox="0 0 16 16" fill="#4EA1FF"><path d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.6C5.87 15.67 6.02 15.43 6.02 15.23C6.02 15.05 6.01 14.5 6.01 13.88C4 14.26 3.48 12.92 3.32 12.41C3.23 12.16 2.84 11.36 2.5 11.18C2.22 11.03 1.82 10.68 2.49 10.67C3.12 10.66 3.58 11.25 3.73 11.5C4.45 12.71 5.59 12.36 6.05 12.14C6.12 11.62 6.33 11.25 6.56 11.04C4.78 10.84 2.91 10.15 2.91 7.13C2.91 6.27 3.22 5.55 3.73 4.98C3.65 4.78 3.36 3.95 3.81 2.81C3.81 2.81 4.49 2.59 6.01 3.58C6.65 3.4 7.33 3.31 8.01 3.31C8.69 3.31 9.37 3.4 10.01 3.58C11.53 2.58 12.21 2.81 12.21 2.81C12.66 3.95 12.37 4.78 12.29 4.98C12.8 5.55 13.11 6.27 13.11 7.13C13.11 10.16 11.23 10.84 9.45 11.04C9.74 11.29 10 11.77 10 12.54C10 13.64 9.99 14.93 9.99 15.23C9.99 15.43 10.14 15.68 10.54 15.6C13.71 14.53 16 11.54 16 8C16 3.58 12.42 0 8 0Z"/></svg>
+        </div>
+    </a>
 </div>
 
-<div style="font-size:13px; color:#9A9080; margin-top:4px;">
-Machine Learning Enthusiast | Aspiring Data Scientist
-</div>
-""", unsafe_allow_html=True)
-
-# Clean Links (Same Font – No Buttons ❌)
-st.sidebar.markdown("<br>", unsafe_allow_html=True)
-
-col1, col2, col3 = st.sidebar.columns(3, gap="small")
-
-# LinkedIn
-with col1:
-    st.markdown("""
-    <div style="display:flex; justify-content:center;">
-        <a href="https://www.linkedin.com/in/arnav-singh-a87847351" target="_blank">
-            <div style="
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                width:40px;
-                height:40px;
-                border-radius:12px;
-                background:rgba(78,161,255,0.08);
-                border:1px solid rgba(78,161,255,0.2);
-            ">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#4EA1FF">
-                <path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6C1.11 6 0 4.88 0 3.5C0 2.12 1.11 1 2.49 1C3.87 1 4.98 2.12 4.98 3.5ZM0.22 8.98H4.75V24H0.22V8.98ZM7.98 8.98H12.32V11.04H12.38C13.04 9.86 14.66 8.63 17.04 8.63C22.08 8.63 23 11.88 23 16.13V24H18.47V17.21C18.47 15.46 18.44 13.2 16.02 13.2C13.56 13.2 13.18 15.06 13.18 17.08V24H8.65V8.98H7.98Z"/>
-                </svg>
-            </div>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Email (CENTER)
-with col2:
-    st.markdown("""
-    <div style="display:flex; justify-content:center;">
-        <a href="mailto:itsarnav.singh80@gmail.com">
-            <div style="
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                width:40px;
-                height:40px;
-                border-radius:12px;
-                background:rgba(0,255,150,0.08);
-                border:1px solid rgba(0,255,150,0.25);
-            ">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="#00FFAA">
-                <path d="M2 4C2 2.9 2.9 2 4 2H20C21.1 2 22 2.9 22 4V20C22 21.1 21.1 22 20 22H4C2.9 22 2 21.1 2 20V4ZM4 4V6L12 13L20 6V4L12 11L4 4ZM20 8L12 15L4 8V20H20V8Z"/>
-                </svg>
-            </div>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
-
-# GitHub
-with col3:
-    st.markdown("""
-    <div style="display:flex; justify-content:center;">
-        <a href="https://github.com/Arnav-Singh-5080" target="_blank">
-            <div style="
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                width:40px;
-                height:40px;
-                border-radius:12px;
-                background:rgba(255,255,255,0.05);
-                border:1px solid rgba(255,255,255,0.15);
-            ">
-                <svg height="18" width="18" viewBox="0 0 16 16" fill="#4EA1FF">
-                <path d="M8 0C3.58 0 0 3.58 0 8C0 11.54 2.29 14.53 5.47 15.6C5.87 15.67 6.02 15.43 6.02 15.23C6.02 15.05 6.01 14.5 6.01 13.88C4 14.26 3.48 12.92 3.32 12.41C3.23 12.16 2.84 11.36 2.5 11.18C2.22 11.03 1.82 10.68 2.49 10.67C3.12 10.66 3.58 11.25 3.73 11.5C4.45 12.71 5.59 12.36 6.05 12.14C6.12 11.62 6.33 11.25 6.56 11.04C4.78 10.84 2.91 10.15 2.91 7.13C2.91 6.27 3.22 5.55 3.73 4.98C3.65 4.78 3.36 3.95 3.81 2.81C3.81 2.81 4.49 2.59 6.01 3.58C6.65 3.4 7.33 3.31 8.01 3.31C8.69 3.31 9.37 3.4 10.01 3.58C11.53 2.58 12.21 2.81 12.21 2.81C12.66 3.95 12.37 4.78 12.29 4.98C12.8 5.55 13.11 6.27 13.11 7.13C13.11 10.16 11.23 10.84 9.45 11.04C9.74 11.29 10 11.77 10 12.54C10 13.64 9.99 14.93 9.99 15.23C9.99 15.43 10.14 15.68 10.54 15.6C13.71 14.53 16 11.54 16 8C16 3.58 12.42 0 8 0Z"/>
-                </svg>
-            </div>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.sidebar.markdown("<br>", unsafe_allow_html=True)
-
-# Optional CTA
-st.sidebar.markdown("""
-<div style="font-size:12px; color:#5A5448; text-align:center;">
+<div style="font-size:12px; color:#5A5448; text-align:center; margin-bottom:16px;">
 ⭐ If you like this project, consider starring it on GitHub
 </div>
 """, unsafe_allow_html=True)
@@ -588,10 +537,22 @@ st.sidebar.markdown("""
 # -----------------------------------
 # Load Model
 # -----------------------------------
-model_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'loan_model.pkl')
-model = pickle.load(open(model_path, "rb"))
-scaler_path = os.path.join(os.path.dirname(__file__), '..', 'models', 'scaler.pkl')
-scaler = pickle.load(open(scaler_path, "rb"))
+model_path = os.path.join(os.path.dirname(__file__), "..", "models", "loan_model.pkl")
+scaler_path = os.path.join(os.path.dirname(__file__), "..", "models", "scaler.pkl")
+
+try:
+    model = pickle.load(open(model_path, "rb"))
+    scaler = pickle.load(open(scaler_path, "rb"))
+except FileNotFoundError:
+    st.error("### ⚠️ Model Files Not Found")
+    st.info("""
+    The required AI models (**loan_model.pkl** and **scaler.pkl**) are missing from the `models/` directory.
+    
+    **How to fix:**
+    1. Place the `.pkl` files in the `models/` folder.
+    2. Refer to `docs/setup.md` for detailed instructions.
+    """)
+    st.stop()
 
 # -----------------------------------
 # EMI Calculator
@@ -684,6 +645,13 @@ with col_btn:
 # Prediction
 # -----------------------------------
 if run:
+    # -----------------------------------
+    # Input Validation
+    # -----------------------------------
+    if applicant_income == 0 or loan_amount == 0:
+        st.error("⚠ Income and Loan Amount must be greater than zero.")
+        st.stop()
+
     import time
     from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
     from reportlab.lib import colors
