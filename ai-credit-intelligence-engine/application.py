@@ -192,20 +192,20 @@ label, .stSelectbox label, .stNumberInput label,
     text-transform: uppercase !important;
     font-weight: 500 !important;
     margin-bottom: 6px !important;
-}
-
+}           
 /* ── Text inputs & number inputs ── */
 input[type="number"], .stTextInput input {
-    background: rgba(255,255,255,0.04) !important;
+    background: #ffffff !important;
     border: 1px solid var(--border) !important;
     border-radius: 10px !important;
-    color: var(--text-primary) !important;
+    color: #000000 !important;
+    caret-color: #000000 !important;
     padding: 10px 14px !important;
     font-size: 15px !important;
     font-family: 'DM Sans', sans-serif !important;
     transition: border-color 0.2s !important;
 }
-
+                        
 input[type="number"]:focus {
     border-color: var(--gold) !important;
     box-shadow: 0 0 0 3px var(--gold-dim) !important;
