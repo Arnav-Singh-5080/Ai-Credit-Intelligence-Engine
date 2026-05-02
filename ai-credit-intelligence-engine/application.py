@@ -80,13 +80,13 @@ def get_theme_vars():
             "border": "rgba(201,168,76,0.2)",
             "border_bright": "rgba(201,168,76,0.5)",
             "input_bg": "rgba(255,255,255,0.04)",
-            "input_color": "#1A1410",
+            "input_color": "#F0EBE0",
             "sidebar_bg": "#070B14",
             "scrollbar_track": "transparent",
             "noise_opacity": "0.4",
             "hero_bg": "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%), linear-gradient(180deg, #0C1525 0%, #070B14 100%)",
             "toggle_icon": "🌙",
-            "toggle_label": "dark Mode",
+            "toggle_label": "Dark Mode",
             "toggle_bg": "rgba(255,255,255,0.07)",
             "toggle_border": "rgba(255,255,255,0.2)",
             "toggle_color": "#F0EBE0",
@@ -109,12 +109,12 @@ def get_theme_vars():
             "noise_opacity": "0.15",
             "hero_bg": "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.15) 0%, transparent 70%), linear-gradient(180deg, #EDE7D9 0%, #F5F0E8 100%)",
             "toggle_icon": "☀️",
-            "toggle_label": "light Mode",
+            
+            "toggle_label": "Light Mode",
             "toggle_bg": "#1A1410",
             "toggle_border": "rgba(26,20,16,0.8)",
             "toggle_color": "#F0EBE0",
         }
-    
 
 # -----------------------------------
 # AUTH UI
