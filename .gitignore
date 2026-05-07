@@ -9,3 +9,6 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# User credentials (should not be committed)
+users.csv

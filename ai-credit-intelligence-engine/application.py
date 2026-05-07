@@ -4,6 +4,8 @@ import pandas as pd
 import pickle
 import numpy as np
 import hashlib
+import re
+import html as html_module
 
 
 # Page Config
@@ -146,7 +148,7 @@ label, [data-testid="stWidgetLabel"] {
 # -----------------------------------
 # USER DATABASE FUNCTIONS
 # -----------------------------------
-USER_FILE = "users.csv"
+USER_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "users.csv")
 
 def load_users():
     if os.path.exists(USER_FILE):
@@ -177,7 +179,7 @@ if "logged_in" not in st.session_state:
 if "username" not in st.session_state:
     st.session_state.username = None
 
-import re
+# 're' module is already imported at the top of the file
 
 def is_valid_username(username):
     return re.match(r"^[a-zA-Z0-9_.]{4,20}$", username)
@@ -432,6 +434,7 @@ if not st.session_state.logged_in:
     show_auth()
     st.stop()
 
+safe_username = html_module.escape(st.session_state.username) if st.session_state.username else ""
 st.markdown(f"""
 <div style="
     padding: 14px 20px;
@@ -442,7 +445,7 @@ st.markdown(f"""
     font-size: 16px;
     margin-bottom: 18px;
 ">
-    👋 Welcome !! <b>{st.session_state.username}</b> ..System status: Active. LoanSahayak is ready to transform your data into definitive financial insights
+    👋 Welcome !! <b>{safe_username}</b> ..System status: Active. LoanSahayak is ready to transform your data into definitive financial insights
 </div>
 """, unsafe_allow_html=True)
 
@@ -920,8 +923,10 @@ model_path = os.path.join(os.path.dirname(__file__), "..", "models", "loan_model
 scaler_path = os.path.join(os.path.dirname(__file__), "..", "models", "scaler.pkl")
 
 try:
-    model  = pickle.load(open(model_path, "rb"))
-    scaler = pickle.load(open(scaler_path, "rb"))
+    with open(model_path, "rb") as f:
+        model = pickle.load(f)
+    with open(scaler_path, "rb") as f:
+        scaler = pickle.load(f)
 except FileNotFoundError:
     st.error("### ⚠️ Model Files Not Found")
     st.info("""
