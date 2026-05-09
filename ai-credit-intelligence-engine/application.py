@@ -1245,6 +1245,77 @@ if run:
         mime="application/pdf"
     )
 
+
+st.markdown("""
+<style>
+
+/* your old css */
+
+
+/* =========================================
+   TEXT VISIBILITY ENHANCEMENT
+========================================= */
+
+/* Section descriptions */
+.section-desc {
+    color: #B8AE9D !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    letter-spacing: 1.2px !important;
+}
+
+/* All labels */
+label,
+.stSelectbox label,
+.stNumberInput label,
+.stSlider label,
+[data-testid="stWidgetLabel"] {
+    color: #D8D2C5 !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    letter-spacing: 1px !important;
+}
+
+/* Selectbox selected value */
+.stSelectbox div[data-baseweb="select"] span {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+/* Dropdown text */
+.stSelectbox div[data-baseweb="select"] {
+    color: #FFFFFF !important;
+}
+
+/* Dropdown background */
+.stSelectbox > div > div {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(201,168,76,0.25) !important;
+}
+
+/* Section titles */
+.section-title {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+/* Footer visibility */
+.footer-text {
+    color: #9E9586 !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+}
+
+/* Footer gold text */
+.footer-highlight {
+    color: #D4AF37 !important;
+    font-weight: 700 !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 # -----------------------------------
 # Footer
 # -----------------------------------
