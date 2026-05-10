@@ -4,6 +4,7 @@ import pandas as pd
 import pickle
 import numpy as np
 import hashlib
+import sqlite3
 
 
 # Page Config
@@ -146,24 +147,71 @@ label, [data-testid="stWidgetLabel"] {
 # -----------------------------------
 # USER DATABASE FUNCTIONS
 # -----------------------------------
-USER_FILE = "users.csv"
+USER_DB = "users.db"
 
-def load_users():
+def init_db():
+    conn = sqlite3.connect(USER_DB)
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS users
+                 (username TEXT PRIMARY KEY, password TEXT)''')
+    conn.commit()
+    conn.close()
+    
+    # Migrate from CSV if it exists
+    USER_FILE = "users.csv"
     if os.path.exists(USER_FILE):
-        return pd.read_csv(USER_FILE)
-    else:
-        return pd.DataFrame(columns=["username", "password"])
+        try:
+            df = pd.read_csv(USER_FILE)
+            conn = sqlite3.connect(USER_DB)
+            c = conn.cursor()
+            for _, row in df.iterrows():
+                try:
+                    c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (row['username'], row['password']))
+                except sqlite3.IntegrityError:
+                    pass
+            conn.commit()
+            conn.close()
+            os.rename(USER_FILE, USER_FILE + ".bak")
+        except Exception:
+            pass
+
+init_db()
+
+def verify_user(username, password):
+    conn = sqlite3.connect(USER_DB)
+    c = conn.cursor()
+    c.execute("SELECT password FROM users WHERE username = ?", (username,))
+    row = c.fetchone()
+    conn.close()
+    if row and row[0] == hash_password(password):
+        return True
+    return False
+
+def user_exists(username):
+    conn = sqlite3.connect(USER_DB)
+    c = conn.cursor()
+    c.execute("SELECT 1 FROM users WHERE LOWER(username) = LOWER(?)", (username,))
+    exists = c.fetchone() is not None
+    conn.close()
+    return exists
 
 def save_user(username, password):
-    df = load_users()
-    new_user = pd.DataFrame([[username, password]], columns=["username", "password"])
-    df = pd.concat([df, new_user], ignore_index=True)
-    df.to_csv(USER_FILE, index=False)
+    conn = sqlite3.connect(USER_DB)
+    c = conn.cursor()
+    try:
+        c.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+        conn.commit()
+    except sqlite3.IntegrityError:
+        pass
+    finally:
+        conn.close()
 
 def update_password(username, new_password):
-    df = load_users()
-    df.loc[df["username"] == username, "password"] = hash_password(new_password)
-    df.to_csv(USER_FILE, index=False)
+    conn = sqlite3.connect(USER_DB)
+    c = conn.cursor()
+    c.execute("UPDATE users SET password = ? WHERE username = ?", (hash_password(new_password), username))
+    conn.commit()
+    conn.close()
 
 # -----------------------------------
 # PASSWORD HASHING
@@ -370,7 +418,6 @@ def show_auth():
 
     with center_col:
         choice = st.radio("", ["Login", "Sign Up"], horizontal=True, label_visibility="collapsed")
-        users  = load_users()
 
         st.markdown("<div style='height:14px'></div>", unsafe_allow_html=True)
 
@@ -383,11 +430,7 @@ def show_auth():
                 if username == "" or password == "":
                     st.warning("Please enter both fields.")
                 else:
-                    user = users[
-                        (users["username"] == username) &
-                        (users["password"] == hash_password(password))
-                    ]
-                    if not user.empty:
+                    if verify_user(username, password):
                         st.session_state.logged_in = True
                         st.session_state.username  = username
                         st.success("Access granted. Welcome back.")
@@ -410,7 +453,7 @@ def show_auth():
                     st.error("Password must include uppercase, lowercase & a number.")
                 elif new_pass != confirm_pass:
                     st.error("Passwords do not match.")
-                elif new_user.lower() in users["username"].str.lower().values:
+                elif user_exists(new_user):
                     st.warning("Username already exists.")
                 else:
                     save_user(new_user, hash_password(new_pass))
