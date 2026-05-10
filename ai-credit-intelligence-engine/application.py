@@ -770,12 +770,24 @@ except FileNotFoundError:
 # -----------------------------------
 # EMI CALCULATOR
 # -----------------------------------
-def calculate_emi(principal, tenure_months, annual_rate=10):
+def calculate_emi(principal: float, tenure_months: int, annual_rate: float) -> float:
+    """
+    Calculate monthly EMI using the standard reducing-balance formula.
+
+    Args:
+        principal      : Loan amount in ₹
+        tenure_months  : Repayment period in months
+        annual_rate    : Annual interest rate as a percentage (e.g. 10 for 10%)
+
+    Returns:
+        Monthly EMI in ₹ (0 if principal or tenure is zero)
+    """
     if principal == 0 or tenure_months == 0:
-        return 0
+        return 0.0
     monthly_rate = annual_rate / 12 / 100
-    emi = (principal * monthly_rate * (1 + monthly_rate)**tenure_months) / \
-          ((1 + monthly_rate)**tenure_months - 1)
+    # Standard EMI formula: P * r * (1+r)^n / ((1+r)^n - 1)
+    emi = (principal * monthly_rate * (1 + monthly_rate) ** tenure_months) / \
+          ((1 + monthly_rate) ** tenure_months - 1)
     return emi
 
 # -----------------------------------
@@ -807,9 +819,19 @@ with col3:
 with col4:
     loan_term = st.slider("Loan Term (Months)", 6, 360, 60)
 
-col5, _ = st.columns([1, 1], gap="large")
+col5, col6_rate = st.columns([1, 1], gap="large")
 with col5:
     age = st.slider("Applicant Age", 18, 70, 30)
+with col6_rate:
+    # Dynamic annual interest rate — replaces all hardcoded 10% references
+    annual_interest_rate = st.slider(
+        "Annual Interest Rate (%)",
+        min_value=5.0,
+        max_value=24.0,
+        value=10.0,
+        step=0.5,
+        help="Select the applicable annual interest rate for EMI calculation"
+    )
 
 # -----------------------------------
 # SECTION: BACKGROUND DETAILS
@@ -824,6 +846,9 @@ st.markdown("""
 
 col6, col7 = st.columns(2, gap="large")
 with col6:
+bg_col1, bg_col2 = st.columns(2, gap="large")
+
+with bg_col1:
     employment_dict   = {"Unemployed": 0, "Salaried": 1, "Self-Employed": 2}
     employment_status = employment_dict[st.selectbox("Employment Status", list(employment_dict.keys()))]
     property_dict     = {"Rural": 0, "Semi-Urban": 1, "Urban": 2}
@@ -835,8 +860,9 @@ with col7:
     education_level       = education_dict[st.selectbox("Education Level", list(education_dict.keys()))]
     gender_dict           = {"Female": 0, "Male": 1}
     gender                = gender_dict[st.selectbox("Gender", list(gender_dict.keys()))]
-    employer_category_dict = {"Private Sector": 0, "Government": 1, "Business Owner": 2}
-    employer_category     = employer_category_dict[st.selectbox("Employer Category", list(employer_category_dict.keys()))]
+    loan_purpose = loan_purpose_dict[st.selectbox("Loan Purpose", list(loan_purpose_dict.keys()))]
+
+
 
 # -----------------------------------
 # ANALYSE BUTTON
@@ -878,8 +904,9 @@ if run:
     progress_bar.empty()
 
     total_income = applicant_income + coapplicant_income
-    emi          = calculate_emi(loan_amount, loan_term)
-    emi_ratio    = emi / total_income if total_income > 0 else 0
+    # Pass the user-selected annual interest rate — no hardcoded values
+    emi       = calculate_emi(loan_amount, loan_term, annual_interest_rate)
+    emi_ratio = emi / total_income if total_income > 0 else 0
 
     with st.expander("📋 Application Summary"):
         s1, s2, s3 = st.columns(3)
@@ -912,10 +939,11 @@ if run:
     </div>
     """, unsafe_allow_html=True)
 
-    mA, mB, mC = st.columns(3)
+    mA, mB, mC, mD = st.columns(4)
     mA.metric("Monthly EMI",          f"₹ {round(emi, 2):,}")
     mB.metric("Total Monthly Income", f"₹ {total_income:,}")
     mC.metric("EMI / Income Ratio",   f"{round(emi_ratio * 100, 2)} %")
+    mD.metric("Annual Interest Rate", f"{annual_interest_rate} %")
 
     st.markdown("---")
     st.progress(int(approval_prob))
@@ -987,11 +1015,12 @@ if run:
     content.append(Paragraph("Financial Summary", section_style))
     content.append(Spacer(1, 10))
     table = Table([
-        ["Metric", "Value"],
-        ["Total Income", f"Rs. {total_income:,}"],
-        ["Loan Amount",  f"Rs. {loan_amount:,}"],
-        ["Loan Term",    f"{loan_term} months"],
-        ["EMI",          f"Rs. {round(emi,2)}"]
+        ["Metric",              "Value"],
+        ["Total Income",        f"Rs. {total_income:,}"],
+        ["Loan Amount",         f"Rs. {loan_amount:,}"],
+        ["Loan Term",           f"{loan_term} months"],
+        ["Annual Interest Rate", f"{annual_interest_rate} %"],
+        ["Monthly EMI",         f"Rs. {round(emi, 2):,}"]
     ])
     table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#C9A84C")),
@@ -1041,6 +1070,77 @@ if run:
         file_name="LoanSahayak_Report.pdf",
         mime="application/pdf"
     )
+
+
+st.markdown("""
+<style>
+
+/* your old css */
+
+
+/* =========================================
+   TEXT VISIBILITY ENHANCEMENT
+========================================= */
+
+/* Section descriptions */
+.section-desc {
+    color: #B8AE9D !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    letter-spacing: 1.2px !important;
+}
+
+/* All labels */
+label,
+.stSelectbox label,
+.stNumberInput label,
+.stSlider label,
+[data-testid="stWidgetLabel"] {
+    color: #D8D2C5 !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    letter-spacing: 1px !important;
+}
+
+/* Selectbox selected value */
+.stSelectbox div[data-baseweb="select"] span {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+/* Dropdown text */
+.stSelectbox div[data-baseweb="select"] {
+    color: #FFFFFF !important;
+}
+
+/* Dropdown background */
+.stSelectbox > div > div {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1px solid rgba(201,168,76,0.25) !important;
+}
+
+/* Section titles */
+.section-title {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+/* Footer visibility */
+.footer-text {
+    color: #9E9586 !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+}
+
+/* Footer gold text */
+.footer-highlight {
+    color: #D4AF37 !important;
+    font-weight: 700 !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # -----------------------------------
 # FOOTER
