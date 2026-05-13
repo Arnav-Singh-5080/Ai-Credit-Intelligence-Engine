@@ -1076,7 +1076,38 @@ with bg_col2:
 
     employer_category_dict = {"Private Sector": 0, "Government": 1, "Business Owner": 2}
     employer_category = employer_category_dict[st.selectbox("Employer Category", list(employer_category_dict.keys()))]
+# -----------------------------------
+# Real-Time Loan Summary Panel
+# -----------------------------------
 
+st.markdown("""
+<div class="section-header">
+    <div class="section-icon">📌</div>
+    <div class="section-title">Live Loan Summary</div>
+    <div class="section-desc">Real-time Insights</div>
+</div>
+""", unsafe_allow_html=True)
+
+total_income = applicant_income + coapplicant_income
+monthly_income = total_income / 12 if total_income > 0 else 0
+emi_estimate = calculate_emi(loan_amount, loan_term)
+
+col_s1, col_s2, col_s3 = st.columns(3)
+
+col_s1.metric("Monthly Income", f"₹ {round(monthly_income,2):,}")
+col_s2.metric("Loan Amount", f"₹ {loan_amount:,}")
+col_s3.metric("Estimated EMI", f"₹ {round(emi_estimate,2):,}")
+
+# Affordability Hint
+if monthly_income > 0 and emi_estimate > 0:
+    ratio = emi_estimate / monthly_income
+
+    if ratio < 0.3:
+        st.success("Loan looks affordable")
+    elif ratio < 0.5:
+        st.warning("Loan may be slightly risky")
+    else:
+        st.error("Loan is risky based on current inputs")
 # -----------------------------------
 # Analyse Button
 # -----------------------------------
