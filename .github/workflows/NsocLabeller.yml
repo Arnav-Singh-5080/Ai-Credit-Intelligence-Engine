@@ -3,7 +3,7 @@ name: NSOC Label
 on:
   issues:
     types: [opened]
-
+    
 permissions:
   contents: write
   issues: write
