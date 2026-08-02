@@ -1058,8 +1058,9 @@ st.markdown("""
 bg_col1, bg_col2 = st.columns(2, gap="large")
 
 with bg_col1:
-    employment_dict   = {"Unemployed": 0, "Salaried": 1, "Self-Employed": 2}
-    employment_status = employment_dict[st.selectbox("Employment Status", list(employment_dict.keys()))]
+    employment_dict        = {"Unemployed": 0, "Salaried": 1, "Self-Employed": 2}
+    employment_status_label = st.selectbox("Employment Status", list(employment_dict.keys()))
+    employment_status       = employment_dict[employment_status_label]
 
     property_dict = {"Rural": 0, "Semi-Urban": 1, "Urban": 2}
     property_area = property_dict[st.selectbox("Property Area", list(property_dict.keys()))]
@@ -1075,7 +1076,20 @@ with bg_col2:
     gender = gender_dict[st.selectbox("Gender", list(gender_dict.keys()))]
 
     employer_category_dict = {"Private Sector": 0, "Government": 1, "Business Owner": 2}
-    employer_category = employer_category_dict[st.selectbox("Employer Category", list(employer_category_dict.keys()))]
+    is_unemployed = employment_status_label == "Unemployed"
+    if is_unemployed:
+        # When unemployed, show a disabled selectbox with N/A and use -1 as sentinel
+        st.selectbox(
+            "Employer Category",
+            options=["N/A — Not Applicable"],
+            disabled=True,
+            help="Employer Category is not applicable when Employment Status is Unemployed."
+        )
+        employer_category = -1
+    else:
+        employer_category = employer_category_dict[
+            st.selectbox("Employer Category", list(employer_category_dict.keys()))
+        ]
 
 # -----------------------------------
 # Analyse Button
