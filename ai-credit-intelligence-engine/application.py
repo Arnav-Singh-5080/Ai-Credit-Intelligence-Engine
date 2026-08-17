@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 import pandas as pd
-import pickle
+import joblib
 import numpy as np
 import hashlib
 import sqlite3
@@ -963,8 +963,8 @@ model_path = os.path.join(os.path.dirname(__file__), "..", "models", "loan_model
 scaler_path = os.path.join(os.path.dirname(__file__), "..", "models", "scaler.pkl")
 
 try:
-    model  = pickle.load(open(model_path, "rb"))
-    scaler = pickle.load(open(scaler_path, "rb"))
+    model  = joblib.load(model_path)
+    scaler = joblib.load(scaler_path)
 except FileNotFoundError:
     st.error("### ⚠️ Model Files Not Found")
     st.info("""
